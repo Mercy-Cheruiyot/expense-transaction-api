@@ -1,0 +1,58 @@
+{
+   " transacations":[
+    {
+        
+        "id":"1",
+        "category":"1",
+        "amount": 100
+    },
+    {
+        
+        "id":"2",
+        "category":"2",
+        "amount": 500
+    },  
+    {
+        
+        "id":"3",
+        "category":"4",
+        "amount": 500
+    },
+    {
+        
+        "id":"4",
+        "category":"3",
+        "amount": 500
+    },
+    {
+        
+        "id":"5",
+        "category":"3",
+        "amount": 500
+    }
+   ],
+   "category":[
+    {
+        "id":"1",
+        "name":"savings",
+        "colour":"#FF0000"
+    },
+    {
+        "id":"2",
+        "name":"transport",
+        "colour":"#FFFF00"
+    },
+    {
+        "id":"3",
+        "name":"Food",
+        "colour":"#008000"
+    },
+    {
+        "id":"4",
+        "name":"salary",
+        "colour":"#000080"
+    }
+    
+    
+   ]
+}
