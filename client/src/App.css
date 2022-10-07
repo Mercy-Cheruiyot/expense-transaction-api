@@ -8,7 +8,16 @@
   --color-yellow : #f9c74f;
   --color-purple: #9d4edd;
   --color-white: aliceblue;
+  --magenta: rgb(210, 51, 210);
+  --cyan: rgb(98, 230, 230);
+  --yellow: rgb(237, 237, 32);
+  --font-color: rgb(33, 33, 33);
+  --font-color-light: rgb(155, 155, 155);
+  --background: rgb(255, 255, 255);
+  --background-light: rgb(230, 230, 230);
 }
+
+
 
 * > *{
   font-family: 'Poppins', sans-serif;
@@ -19,6 +28,14 @@
 .App {
   text-align: center;
   padding: 4em 0;
+  background: var(--background);
+  color: var(--font-color);
+}
+.App.dark {
+  --font-color: rgb(255, 255, 255);
+  --background: rgb(50, 50, 50);
+  --background-light: rgb(101, 101, 101);
+  transition: all 0.3s;
 }
 .css {
   background-color: rgb(14, 8, 49);
@@ -51,7 +68,17 @@
   margin-left: auto;
   margin-right: auto;
 }
+.table{
+  table-layout: auto;
+  border: black;
+  border-style:solid;
 
+}
+.th{
+  padding-left: 5px;
+  padding-top: 5px;
+  border-left: ;
+}
 .form-input{
   @apply mt-1 block w-full py-2 px-3 border border-gray-200 bg-white rounded-md focus:outline-none focus:ring-indigo-500 sm:text-sm;
 } 

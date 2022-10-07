@@ -1,62 +1,74 @@
-import React from 'react'
- import 'boxicons';
-// import {default as api} from '../store/apiSlice';
+import React,{useState, useEffect} from 'react'
+import Transaction from "./Transaction"
+ import Filter from "./Filter"
 
-// export default function List() {
-//     const { data, isFetching , isSuccess, isError } = api.useGetLabelsQuery()
-//     const [deleteTransaction] = api.useDeleteTransactionMutation()
-//     let Transactions;
 
+export default function List({}) {
+    const [selectedCategory, setSelectedCategory] = useState("All");
+     const [transactions, setTransactions] = useState([]);
+
+    useEffect(() => {
+        fetch("http://localhost:4000/transactions")
+          .then((r) => r.json())
+          .then((transactions) =>
+          setTransactions(transactions)
+           );}, []);
     
-//     const handlerClick = (e) => {
-//         if(!e.target.dataset.id) return 0;
-//         deleteTransaction({ _id : e.target.dataset.id })
-//     }
+    //   function handleAddItem(newTransaction) {
+    //    setTransactions([ ...transactions, newTransaction]);
+    //   }
 
-//     if(isFetching){
-//         Transactions = <div>Fetching</div>;
-//     }else if(isSuccess){
-//         Transactions = data.map((v, i) => <Transaction key={i} category={v} handler={handlerClick} ></Transaction>);
-//     }else if(isError){
-//         Transactions = <div>Error</div>
-//     }
-
-
-//   return (
-//     <div className="flex flex-col py-6 gap-3">
-//         <h1 className='py-4 font-bold text-xl'>History</h1>
-//         {Transactions}
-//     </div>
-//   )
-// }
-
-// function Transaction({ category, handler }){
-//     if(!category) return null;
-//     return (
-//         <div className="item flex justify-center bg-gray-50 py-2 rounded-r" style={{ borderRight : `8px solid ${category.color ??  "#e5e5e5"}`}}>
-//             <button className='px-3' onClick={handler}><box-icon data-id={category._id ?? ''}  color={category.color ??  "#e5e5e5"} size="15px" name="trash" ></box-icon></button>            
-//             <span className='block w-full'>{category.name ?? ''}</span>
-//         </div>
-//     )
-// }
-
-export default function List() {
+    function handleCategoryChange(category) {
+        setSelectedCategory(category);
+      }
+    //   function handleDeleteTransaction(deletedTransaction) {
+    //     const updatedTransactions = transactions.filter((transaction) => transaction.id !== deletedTransaction.id);
+    //     setTransactions(updatedTransactions);
+    //   }
+    //   function handleUpdateTransaction(updatedTransaction) {
+    //     const updatedTransaction = transaction.map((transaction) => {
+    //       if (transaction.id === updatedTransaction.id) {
+    //         return updatedTransaction;
+    //       } else {
+    //         return transaction;
+    //       }
+    //     });
+    //     setTransactions(updatedTransaction);
+      //}
+    
+    //   const transactionsToDisplay = transactions.filter((transaction) => {
+    //     if (selectedCategory === "All") return true;
+    
+    //     return transaction.category === selectedCategory;
+    //   });
+        
+              
 
     return (
             <div className="flex flex-col py-6 gap-3">
                 <h1 className='py-4 font-bold text-xl'>History</h1>
-                {Transactions}
+                <Filter
+                      category={selectedCategory}
+                      onCategoryChange={handleCategoryChange}
+                    />
+                    <ul >
+                      {transactions.map((transaction) => (
+                        <Transaction key={transaction.id}
+                            transaction={transaction}
+                        //  {/* <td>name={transaction.name}</td>
+                        //  <td>category={transaction.category}</td>
+                        //  <td>amount={transaction.amount}</td> */}
+                        
+                        //  {/* onUpdateTransaction={handleUpdateTransaction}
+                        //  onDeleteTransaction={handleDeleteTransaction} */}
+                         />
+                      ))}
+                    </ul>
+                
             </div>
           )
         }
 
-        function Transaction({ category}){
-                if(!category) return null;
-                return (
-                    <div className="item flex justify-center bg-gray-50 py-2 rounded-r" style={{ borderRight : `8px solid ${category.color ??  "#e5e5e5"}`}}>
-                        <button className='px-3' onClick={handler}><box-icon data-id={category._id ?? ''}  color={category.color ??  "#e5e5e5"} size="15px" name="trash" ></box-icon></button>            
-                        <span className='block w-full'>{category.name ?? ''}</span>
-                    </div>
-                )
-            }
+        
+              
         

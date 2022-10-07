@@ -1,18 +1,39 @@
-import React from 'react'
-import { useForm } from 'react-hook-form';
+import React,{useState,useEffect} from 'react'
+
 import List from './List';
-//import {default as api} from '../store/apiSlice';
 
-export default function Form() {
+export default function Form({handleAddTransaction}) {
+  
+    const [name, setName] = useState("");
+    const [category, setCategory] = useState("Investment");
+    const [amount, setAmount]=useState("")
 
-    const {register, handleSubmit, resetField} = useForm();
-   // const [addTransaction] = api.useAddTransactionMutation();
+   
+  
+    function handleSubmit(e) {
+        e.preventDefault();
+        const transactionData = {
+          name: name,
+          category: category,
+          amount: amount,
+        };
 
-    const onSubmit = async (data) => {
-        if(!data) return {};
-        await addTransaction(data).unwrap();
-        resetField('name');
-        resetField('amount')
+       
+        fetch("http://localhost:4000/transactions", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(transactionData),
+          })
+            .then((r) => r.json())
+            .then((newTransaction) => onAddTransaction(newTransaction));
+
+            //  function onAddTransaction(newTransaction) {
+            //   setTransactions([...transactions, newTransaction]);
+            //   }
+
+  
     }
 
   return (
@@ -20,18 +41,25 @@ export default function Form() {
         
         <h1 className='font-bold pb-4 text-xl'>Transaction</h1>
 
-        <form id='form' onSubmit={handleSubmit(onSubmit)}>
+        <form id='form' onSubmit={handleSubmit}>
             <div className="grid gap-4">
                 <div className="input-group">
-                    <input type="text" {...register('name')} placeholder='Salary, House Rend, SIP' className='form-input' />
+                    <input type="text"
+                     placeholder='Salary, House Rend, SIP'
+                      className='form-input'
+                      name="name"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)} />
                 </div>
-                <select className='form-input' {...register('type')}>
-                    <option value="Investment" defaultValue>Investment</option>
+                <select className='form-input'  value={category}
+          onChange={(e) => setCategory(e.target.value)}>
+                    <option value="Investment">Investment</option>
                     <option value="Expense">Expense</option>
                     <option value="Savings">Savings</option>
                 </select>
                 <div className="input-group">
-                    <input type="text" {...register('amount')} placeholder='Amount' className='form-input' />
+                    <input type="text"  value={amount}
+          onChange={(e) => setAmount(e.target.value)} placeholder='Amount' className='form-input' />
                 </div>
                 <div className="submit-btn">
                     <button className='border py-2 text-white bg-indigo-500 w-full'>Make Transaction</button>
@@ -39,7 +67,7 @@ export default function Form() {
             </div>    
         </form>
 
-        <List></List>
+        <List onAddTransaction={handleAddTransaction}></List>
     </div>
   )
 }
