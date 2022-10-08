@@ -77,7 +77,7 @@
 .th{
   padding-left: 5px;
   padding-top: 5px;
-  border-left: ;
+  border-bottom: 5px;
 }
 .form-input{
   @apply mt-1 block w-full py-2 px-3 border border-gray-200 bg-white rounded-md focus:outline-none focus:ring-indigo-500 sm:text-sm;

@@ -1,12 +1,14 @@
 import React,{useState,useEffect} from 'react'
 
-import List from './List';
+//import List from './List';
 
-export default function Form({handleAddTransaction}) {
+export default function Form({onAddTransaction}) {
   
     const [name, setName] = useState("");
     const [category, setCategory] = useState("Investment");
-    const [amount, setAmount]=useState("")
+    const [amount, setAmount]=useState("");
+   // const [transactions, setTransactions] = useState([]);
+
 
    
   
@@ -29,17 +31,12 @@ export default function Form({handleAddTransaction}) {
             .then((r) => r.json())
             .then((newTransaction) => onAddTransaction(newTransaction));
 
-            //  function onAddTransaction(newTransaction) {
-            //   setTransactions([...transactions, newTransaction]);
-            //   }
-
+             
   
     }
 
   return (
-    <div className="form max-w-sm mx-auto w-96">
-        
-        <h1 className='font-bold pb-4 text-xl'>Transaction</h1>
+   
 
         <form id='form' onSubmit={handleSubmit}>
             <div className="grid gap-4">
@@ -64,10 +61,10 @@ export default function Form({handleAddTransaction}) {
                 <div className="submit-btn">
                     <button className='border py-2 text-white bg-indigo-500 w-full'>Make Transaction</button>
                 </div>
-            </div>    
+              </div>
         </form>
 
-        <List onAddTransaction={handleAddTransaction}></List>
-    </div>
+        
+    
   )
 }

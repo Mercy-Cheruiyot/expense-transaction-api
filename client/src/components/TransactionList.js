@@ -1,67 +1,66 @@
-import React from "react";
+import React ,{useState,useEffect}from "react";
+import Form from "./Form";
+import Filter from "./Filter";
+import Transaction from "./Transaction";
 
 function TransactionList(){
 
   const [selectedCategory, setSelectedCategory] = useState("All");
-  const [name, setName] = useState("");
-  const [category, setCategory] = useState("Investment");
-  const [amount, setAmount]=useState("")
-
+  const [transactions,setTransactions]=useState([])
   useEffect(() => {
     fetch("http://localhost:4000/transactions")
       .then((r) => r.json())
       .then((transactions) => setTransactions(transactions));
   }, []);
-
-  function handleUpdateItem(updatedItem) {
-    console.log("In ShoppingCart:", updatedItem);
+  function handleUpdateTransaction(updatedTransaction) {
+    const updatedTransactions = transactions.map((transaction) => {
+      if (transaction.id === updatedTransaction.id) {
+        return updatedTransaction;
+      } else {
+        return transaction;
+      }
+    });
+    setTransactions(updatedTransactions);
   }
+ 
   function handleCategoryChange(category) {
     setSelectedCategory(category);
   }
-  function handleUpdateItem(updatedItem) {
-    const updatedItems = items.map((item) => {
-      if (item.id === updatedItem.id) {
-        return updatedItem;
-      } else {
-        return item;
-      }
-    });
-    setItems(updatedItems);
+ 
+  function handleDeleteTransaction(deletedTransaction) {
+    const updatedTransactions = transactions.filter((transaction) => transaction.id !== deletedTransaction.id);
+    setTransactions(updatedTransactions);
   }
-  function handleDeleteItem(deletedItem) {
-    const updatedItems = items.filter((item) => item.id !== deletedItem.id);
-    setItems(updatedItems);
+  function handleAddTransaction(newTransaction) {
+    setTransactions([...transactions, newTransaction]);
   }
-  function handleAddItem(newItem) {
-    setItems([...items, newItem]);
-  }
-  const itemsToDisplay = items.filter((item) => {
+  const transactionsToDisplay = transactions.filter((transaction) => {
     if (selectedCategory === "All") return true;
 
-    return item.category === selectedCategory;
+    return transaction.category === selectedCategory;
   });
 
   return (
     
-      <div className="ShoppingList">
-        <ItemForm onAddItem={handleAddItem} />
-        <Filter
-          category={selectedCategory}
-          onCategoryChange={handleCategoryChange}
-        />
-        <ul className="Items">
-          {/* pass it as a prop to Item */}
-          {itemsToDisplay.map((item) => (
-            <Item
-              key={item.id}
-              item={item}
-              onUpdateItem={handleUpdateItem}
-              onDeleteItem={handleDeleteItem}
-            />
-          ))}
-        </ul>
-      </div>
+    <div className="form max-w-m mx-auto w-96">
+        
+    <h1 className='font-bold pb-4 text-xl'>Transaction</h1>
+    <Form onAddTransaction={handleAddTransaction}/>
+    <div className="flex flex-col py-8 gap-3"> 
+    <h1 className='py-4 font-bold text-xl'>History</h1>
+    <Filter category={selectedCategory} onCategoryChange={handleCategoryChange}/>
+    <ul>
+    {transactionsToDisplay.map((transaction,i) => (
+      <Transaction key={transaction.id}
+          transaction={transaction} 
+      onDeleteTransaction={handleDeleteTransaction}
+      onupdateTransaction={handleUpdateTransaction}/>
+      ))}                        
+    </ul>
+   
+    
+    </div>
+    </div>
     );
   }
 

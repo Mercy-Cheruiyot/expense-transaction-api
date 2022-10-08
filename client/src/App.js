@@ -2,7 +2,8 @@ import './App.css';
 import React,{useState} from 'react'
 import Graph from './components/Graph';
 import Header from './components/Header'
-import Form from './components/Form';
+//import Form from './components/Form';
+import TransactionList from './components/TransactionList';
 
 function App() {
 
@@ -38,7 +39,7 @@ function App() {
           {/* Chart */}
           <Graph></Graph>
           {/* Form */}
-          <Form></Form> 
+          <TransactionList/>
       </div>
         
     </div>

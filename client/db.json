@@ -1,58 +1,51 @@
-{  
- "category":[
-     {
-         "id":"1",
-         "name":"Savings",
-         "colour":"#FF0000"
-     },
-     {
-         "id":"2",
-         "name":"Investment",
-         "colour":"#FFFF00"
-     },
-     {
-         "id":"3",
-         "name":"Expense",
-         "colour":"#008000"
-     }
-   
-     
-    ],
-    "transactions":[
-        {
-            
-            "id":1,
-            "category":"Savings",
-            "name":"Water",
-            "amount": 100
-        },
-        {
-            
-            "id":2,
-            "category":"Investment",
-            "name":"Water",
-            "amount": 500
-        },  
-        {
-            
-            "id":3,
-            "category":"Expense",
-            "name":"Water",
-            "amount": 500
-        },
-        {
-            
-            "id":4,
-            "category":"Expense",
-            "name":"Water",
-            "amount": 500
-        },
-        {
-            
-            "id":5,
-            "category":"Expense",
-            "name":"Water",
-            "amount": 500
-        }
-       ]
- }
+{
+  "category": [
+    {
+      "id": "1",
+      "name": "Savings",
+      "colour": "#FF0000"
+    },
+    {
+      "id": "2",
+      "name": "Investment",
+      "colour": "#FFFF00"
+    },
+    {
+      "id": "3",
+      "name": "Expense",
+      "colour": "#008000"
+    }
+  ],
+  "transactions": [
+    {
+      "id": 1,
+      "category": "Savings",
+      "name": "Water",
+      "amount": 100
+    },
+    {
+      "id": 2,
+      "category": "Investment",
+      "name": "Water",
+      "amount": 500
+    },
+    {
+      "id": 3,
+      "category": "Expense",
+      "name": "Water",
+      "amount": 500
+    },
+    {
+      "id": 4,
+      "category": "Expense",
+      "name": "Water",
+      "amount": 500
+    },
+    {
+      "id": 5,
+      "category": "Expense",
+      "name": "Water",
+      "amount": 500
+    }
+  ]
+}
